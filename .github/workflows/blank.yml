@@ -30,3 +30,7 @@ jobs:
           context: .
           cache-from: type=gha
           cache-to: type=gha,mode=max
+      - name: Run a multi-line script
+        run: |
+          echo Add other actions to build,
+          echo test, and deploy your project.
