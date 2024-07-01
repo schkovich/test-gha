@@ -84,5 +84,3 @@ COPY --from=ubuntu-apt /etc/OpenCL/vendors /etc/OpenCL/vendors/
 COPY --from=ubuntu-apt /etc/ld.so.conf.d /etc/ld.so.conf.d/
 COPY --from=ubuntu-apt /opt/intel /opt/intel/
 RUN ldconfig -f /etc/ld.so.conf.d/libintelopenclexp.conf
-RUN mkdir -p /tmp/openpilot
-RUN git config --global --add safe.directory /tmp/openpilot
