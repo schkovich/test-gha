@@ -9,5 +9,5 @@ RUN gcc -o helloworld hello.c
 # over but starts from the base schkovich/4-open-pilot:main-base image.
 FROM schkovich/4-open-pilot:main-base AS runtime-image
 
-COPY --from=compile-image /root/helloworld .
+COPY --from=base-image /root/helloworld .
 CMD ["./helloworld"]
