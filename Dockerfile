@@ -4,7 +4,7 @@ LABEL authors="goran"
 RUN apt-get update
 RUN apt-get install -y --no-install-recommends gcc build-essential
 
-FROM base-image AS runtime-image
+FROM base-image AS compile-image
 WORKDIR /root
 COPY hello.c .
 RUN gcc -o helloworld hello.c
