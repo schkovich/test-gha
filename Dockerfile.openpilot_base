@@ -82,5 +82,8 @@ RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 RUN mkdir -p $VIRTUAL_ENV
 COPY --from=ubuntu-apt --chown=$USER /tmp $VIRTUAL_ENV .venv/* $VIRTUAL_ENV
 COPY --from=ubuntu-apt  /etc/machine-id /etc/machine-id
-
+COPY --from=ubuntu-apt /etc/OpenCL/vendors /etc/OpenCL/vendors/
+COPY --from=ubuntu-apt /etc/ld.so.conf.d /etc/ld.so.conf.d/
+COPY --from=ubuntu-apt /opt/intel /opt/intel/
+RUN ldconfig -f /etc/ld.so.conf.d/libintelopenclexp.conf && \
 RUN git config --global --add safe.directory /tmp/openpilot
