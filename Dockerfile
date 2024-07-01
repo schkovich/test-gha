@@ -1,9 +1,10 @@
-FROM ghcr.io/commaai/openpilot-base:latest AS compile-image
+FROM ghcr.io/commaai/openpilot-base:latest AS base-image
 LABEL authors="goran"
 # This is the first image:
 RUN apt-get update
 RUN apt-get install -y --no-install-recommends gcc build-essential
 
+FROM base-image AS runtime-image
 WORKDIR /root
 COPY hello.c .
 RUN gcc -o helloworld hello.c
