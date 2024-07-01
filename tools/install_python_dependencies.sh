@@ -49,3 +49,4 @@ if [ "$(uname)" != "Darwin" ] && [ -e "$ROOT/.git" ]; then
   pre-commit install
   git submodule foreach pre-commit install
 fi
+# meh
