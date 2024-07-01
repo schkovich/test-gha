@@ -63,15 +63,10 @@ RUN dbus-uuidgen > /etc/machine-id
 
 COPY pyproject.toml uv.lock /tmp/
 COPY tools/install_python_dependencies.sh /tmp/tools/
-
-ENV VIRTUAL_ENV=/home/$USER/.venv
-ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 RUN cd /tmp && \
     tools/install_python_dependencies.sh
 
 FROM ubuntu:24.04 as runtime
-ENV VIRTUAL_ENV=/home/$USER/.venv
-ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
 USER root
 ARG USER=batman
@@ -79,8 +74,11 @@ ARG USER_UID=1001
 RUN useradd -m -s /bin/bash -u $USER_UID $USER
 RUN usermod -aG sudo $USER
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+ENV VIRTUAL_ENV=/home/$USER/.venv
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+
 RUN mkdir -p $VIRTUAL_ENV
-COPY --from=ubuntu-apt --chown=$USER /tmp $VIRTUAL_ENV .venv/* $VIRTUAL_ENV
+COPY --from=ubuntu-apt --chown=$USER /tmp/.venv $VIRTUAL_ENV/
 COPY --from=ubuntu-apt  /etc/machine-id /etc/machine-id
 COPY --from=ubuntu-apt /etc/OpenCL/vendors /etc/OpenCL/vendors/
 COPY --from=ubuntu-apt /etc/ld.so.conf.d /etc/ld.so.conf.d/
