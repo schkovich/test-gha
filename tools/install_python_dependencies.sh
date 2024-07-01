@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 set -e
-set -x
 # Increase the pip timeout to handle TimeoutError
 export PIP_DEFAULT_TIMEOUT=200
 
